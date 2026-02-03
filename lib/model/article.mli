@@ -1,10 +1,10 @@
 (** Describes an external Article. *)
 
-type t
 (** The type describing an article. *)
+type t
 
-val authors_in_chain : Chain.t -> t -> bool
 (** Ensure that authors are present in chain. *)
+val authors_in_chain : Chain.t -> t -> bool
 
 val pp : Format.formatter -> t -> unit
 val sort : t -> t -> int

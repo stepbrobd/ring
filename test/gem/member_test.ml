@@ -5,11 +5,7 @@ open Util
 let%expect_test "validate a minimal member" =
   let member =
     let open Data in
-    record
-      [
-        ("id", string "xwv");
-        ("main_link", record [ ("url", string "https://xvw.lol") ]);
-      ]
+    record [ "id", string "xwv"; "main_link", record [ "url", string "https://xvw.lol" ] ]
   in
   print_validated_value Member.pp (Member.validate member);
   [%expect
@@ -24,31 +20,29 @@ let%expect_test "validate a minimal member" =
     "has_additional_feeds": false, "additional_feeds": [], "has_location":
      false, "location": null}
     |}]
+;;
 
 let%expect_test "validate a full member" =
   let member =
     let open Data in
     record
-      [
-        ("id", string "xwv");
-        ("bio", string "I an OCaml programmer from Belgium, living in France");
-        ("has_avatar", bool true);
-        ("location", string "France, Nantes");
-        ("nouns", list_of string [ "he"; "him"; "his"; "himself" ]);
-        ("main_link", record [ ("url", string "https://xvw.lol") ]);
-        ("main_feed", record [ ("url", string "https://xvw.lol/atom.xml") ]);
-        ( "additional_links",
-          list
-            [
-              record [ ("url", string "https://xvw1.lol") ];
-              record [ ("url", string "https://xvw2.lol") ];
-            ] );
-        ( "additional_feeds",
-          list
-            [
-              record [ ("url", string "https://xvw.lol/1.xml") ];
-              record [ ("url", string "https://xvw.lol/2.xml") ];
-            ] );
+      [ "id", string "xwv"
+      ; "bio", string "I an OCaml programmer from Belgium, living in France"
+      ; "has_avatar", bool true
+      ; "location", string "France, Nantes"
+      ; "nouns", list_of string [ "he"; "him"; "his"; "himself" ]
+      ; "main_link", record [ "url", string "https://xvw.lol" ]
+      ; "main_feed", record [ "url", string "https://xvw.lol/atom.xml" ]
+      ; ( "additional_links"
+        , list
+            [ record [ "url", string "https://xvw1.lol" ]
+            ; record [ "url", string "https://xvw2.lol" ]
+            ] )
+      ; ( "additional_feeds"
+        , list
+            [ record [ "url", string "https://xvw.lol/1.xml" ]
+            ; record [ "url", string "https://xvw.lol/2.xml" ]
+            ] )
       ]
   in
   print_validated_value Member.pp (Member.validate member);
@@ -81,31 +75,29 @@ let%expect_test "validate a full member" =
        "xvw.lol/2.xml"}}],
     "has_location": true, "location": "France, Nantes"}
     |}]
+;;
 
 let%expect_test "validate a full member with error" =
   let member =
     let open Data in
     record
-      [
-        ("id", string "x w v");
-        ("bio", string "I an OCaml programmer from Belgium, living in France");
-        ("has_avatar", bool true);
-        ("location", bool true);
-        ("nouns", list_of string [ "he"; "him"; "his"; "himself" ]);
-        ("main_link", record [ ("url", string "https://xvw.lol") ]);
-        ("main_feed", record [ ("url", string "https://xvw.lol/atom.xml") ]);
-        ( "additional_links",
-          list
-            [
-              record [ ("url", string "https://xvw1.lol") ];
-              record [ ("ur", string "https://xvw2.lol") ];
-            ] );
-        ( "additional_feeds",
-          list
-            [
-              record [ ("ur", string "https://xvw.lol/1.xml") ];
-              record [ ("url", string "https://xvw.lol/2.xml") ];
-            ] );
+      [ "id", string "x w v"
+      ; "bio", string "I an OCaml programmer from Belgium, living in France"
+      ; "has_avatar", bool true
+      ; "location", bool true
+      ; "nouns", list_of string [ "he"; "him"; "his"; "himself" ]
+      ; "main_link", record [ "url", string "https://xvw.lol" ]
+      ; "main_feed", record [ "url", string "https://xvw.lol/atom.xml" ]
+      ; ( "additional_links"
+        , list
+            [ record [ "url", string "https://xvw1.lol" ]
+            ; record [ "ur", string "https://xvw2.lol" ]
+            ] )
+      ; ( "additional_feeds"
+        , list
+            [ record [ "ur", string "https://xvw.lol/1.xml" ]
+            ; record [ "url", string "https://xvw.lol/2.xml" ]
+            ] )
       ]
   in
   print_validated_value Member.pp (Member.validate member);
@@ -130,3 +122,4 @@ let%expect_test "validate a full member with error" =
     "additional_feeds":
      [{"ur": "https://xvw.lol/1.xml"}, {"url": "https://xvw.lol/2.xml"}]}
     |}]
+;;

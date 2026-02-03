@@ -1,17 +1,17 @@
 open Model_util
 
-type t = {
-  id : string;
-  display_name : string option;
-  bio : string option;
-  avatar : string option;
-  nouns : string list;
-  main_link : Link.t;
-  main_feed : Link.t option;
-  additional_links : Link.t list;
-  additional_feeds : Link.t list;
-  location : string option;
-}
+type t =
+  { id : string
+  ; display_name : string option
+  ; bio : string option
+  ; avatar : string option
+  ; nouns : string list
+  ; main_link : Link.t
+  ; main_feed : Link.t option
+  ; additional_links : Link.t list
+  ; additional_feeds : Link.t list
+  ; location : string option
+  }
 
 let id { id; _ } = id
 let display_name { id; display_name; _ } = Option.value ~default:id display_name
@@ -22,88 +22,86 @@ let validate_id = Yocaml.(Data.Validation.(Slug.validate & minimal_length 2))
 let validate =
   let open Yocaml.Data.Validation in
   record (fun fields ->
-      let+ id = required fields "id" validate_id
-      and+ display_name =
-        optional fields "display_name" (string & minimal_length 2)
-      and+ bio = optional fields "bio" (string & minimal_length 5)
-      and+ avatar = optional fields "avatar" string
-      and+ main_link = required fields "main_link" Link.validate
-      and+ main_feed = optional fields "main_feed" Link.validate
-      and+ nouns = optional_or fields ~default:[] "nouns" (list_of token)
-      and+ location = optional fields "location" string
-      and+ additional_links =
-        optional_or fields ~default:[] "additional_links"
-          (list_of Link.validate)
-      and+ additional_feeds =
-        optional_or fields ~default:[] "additional_feeds"
-          (list_of Link.validate)
-      in
-      {
-        id;
-        display_name;
-        bio;
-        avatar;
-        main_link;
-        main_feed;
-        nouns;
-        additional_links;
-        additional_feeds;
-        location;
-      })
+    let+ id = required fields "id" validate_id
+    and+ display_name = optional fields "display_name" (string & minimal_length 2)
+    and+ bio = optional fields "bio" (string & minimal_length 5)
+    and+ avatar = optional fields "avatar" string
+    and+ main_link = required fields "main_link" Link.validate
+    and+ main_feed = optional fields "main_feed" Link.validate
+    and+ nouns = optional_or fields ~default:[] "nouns" (list_of token)
+    and+ location = optional fields "location" string
+    and+ additional_links =
+      optional_or fields ~default:[] "additional_links" (list_of Link.validate)
+    and+ additional_feeds =
+      optional_or fields ~default:[] "additional_feeds" (list_of Link.validate)
+    in
+    { id
+    ; display_name
+    ; bio
+    ; avatar
+    ; main_link
+    ; main_feed
+    ; nouns
+    ; additional_links
+    ; additional_feeds
+    ; location
+    })
+;;
 
 let normalize
-    ({
-       id;
-       bio;
-       avatar;
-       main_link;
-       main_feed;
-       nouns;
-       additional_links;
-       additional_feeds;
-       location;
-       _;
-     } as m) =
+      ({ id
+       ; bio
+       ; avatar
+       ; main_link
+       ; main_feed
+       ; nouns
+       ; additional_links
+       ; additional_feeds
+       ; location
+       ; _
+       } as m)
+  =
   let open Yocaml.Data in
-  [
-    ("id", string id);
-    ("display_name", string @@ display_name m);
-    ("has_bio", has_opt bio);
-    ("bio", option string bio);
-    ("has_avatar", has_opt avatar);
-    ("avatar", option string avatar);
-    ("main_link", Link.normalize main_link);
-    ("has_main_feed", has_opt main_feed);
-    ("main_feed", option Link.normalize main_feed);
-    ("has_nouns", has_list nouns);
-    ("nouns", list_of string nouns);
-    ("has_additional_links", has_list additional_links);
-    ("additional_links", list_of Link.normalize additional_links);
-    ("has_additional_feeds", has_list additional_feeds);
-    ("additional_feeds", list_of Link.normalize additional_feeds);
-    ("has_location", has_opt location);
-    ("location", option string location);
+  [ "id", string id
+  ; "display_name", string @@ display_name m
+  ; "has_bio", has_opt bio
+  ; "bio", option string bio
+  ; "has_avatar", has_opt avatar
+  ; "avatar", option string avatar
+  ; "main_link", Link.normalize main_link
+  ; "has_main_feed", has_opt main_feed
+  ; "main_feed", option Link.normalize main_feed
+  ; "has_nouns", has_list nouns
+  ; "nouns", list_of string nouns
+  ; "has_additional_links", has_list additional_links
+  ; "additional_links", list_of Link.normalize additional_links
+  ; "has_additional_feeds", has_list additional_feeds
+  ; "additional_feeds", list_of Link.normalize additional_feeds
+  ; "has_location", has_opt location
+  ; "location", option string location
   ]
+;;
 
 let pp ppf member =
-  Format.fprintf ppf "%a" Yocaml.Data.pp
-    (member |> normalize |> Yocaml.Data.record)
+  Format.fprintf ppf "%a" Yocaml.Data.pp (member |> normalize |> Yocaml.Data.record)
+;;
 
 let to_string = Format.asprintf "%a" pp
 
 let equal
-    {
-      id;
-      bio;
-      display_name;
-      avatar;
-      main_link;
-      main_feed;
-      nouns;
-      additional_links;
-      additional_feeds;
-      location;
-    } other =
+      { id
+      ; bio
+      ; display_name
+      ; avatar
+      ; main_link
+      ; main_feed
+      ; nouns
+      ; additional_links
+      ; additional_feeds
+      ; location
+      }
+      other
+  =
   String.equal id other.id
   && Option.equal String.equal bio other.bio
   && Option.equal String.equal display_name other.display_name
@@ -114,14 +112,17 @@ let equal
   && List.equal Link.equal additional_links other.additional_links
   && List.equal Link.equal additional_feeds other.additional_feeds
   && Option.equal String.equal location other.location
+;;
 
 let feed_to_outline ?main_link title description feed_url =
   Yocaml_syndication.Opml.subscription
     ~language:(feed_url |> Link.lang |> Lang.to_string)
-    ~title ~description
+    ~title
+    ~description
     ?html_url:(main_link |> Option.map (fun x -> x |> Link.url |> Url.to_string))
     ~feed_url:(feed_url |> Link.url |> Url.to_string)
     ()
+;;
 
 let to_outline member =
   let display_name = display_name member in
@@ -129,25 +130,23 @@ let to_outline member =
     let description = "Main feed of " ^ display_name in
     let title = member.main_link |> Link.title in
     member.main_feed
-    |> Option.map
-         (feed_to_outline ~main_link:member.main_link title description)
+    |> Option.map (feed_to_outline ~main_link:member.main_link title description)
     |> Option.to_list
   in
   let additional_feeds =
     member.additional_feeds
     |> List.mapi (fun index feed ->
-           let title = feed |> Link.title in
-           let description =
-             "Additional feed "
-             ^ string_of_int (succ index)
-             ^ " of "
-             ^ display_name
-           in
-           feed_to_outline title description feed)
+      let title = feed |> Link.title in
+      let description =
+        "Additional feed " ^ string_of_int (succ index) ^ " of " ^ display_name
+      in
+      feed_to_outline title description feed)
   in
   main_feed @ additional_feeds
+;;
 
 let as_author m =
   Yocaml_syndication.Person.make
     ~uri:(m.main_link |> Link.url |> Url.url)
     (display_name m)
+;;

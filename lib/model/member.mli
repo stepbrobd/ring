@@ -19,17 +19,17 @@
     - [additional_feeds] an optional list of additional feeds (associated to
       [has_additional_feeds]) *)
 
-type t
 (** The type describing a member. *)
+type t
 
-val pp : Format.formatter -> t -> unit
 (** Pretty-printer for members. *)
+val pp : Format.formatter -> t -> unit
 
-val to_string : t -> string
 (** serialize a member into a string. *)
+val to_string : t -> string
 
-val equal : t -> t -> bool
 (** Equality between members. *)
+val equal : t -> t -> bool
 
 val as_author : t -> Yocaml_syndication.Person.t
 
@@ -40,12 +40,12 @@ include Yocaml.Required.DATA_INJECTABLE with type t := t
 
 (** {1 Accessors and Mutators} *)
 
-val id : t -> string
 (** Returns the id of a member. *)
+val id : t -> string
 
 val display_name : t -> string
 
 (** {1 OPML generation} *)
 
-val to_outline : t -> Yocaml_syndication.Opml.outline list
 (** [to_outline m] transform a member to a list of OPML outlines. *)
+val to_outline : t -> Yocaml_syndication.Opml.outline list

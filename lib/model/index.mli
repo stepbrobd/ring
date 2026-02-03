@@ -1,8 +1,8 @@
 (** Describes an index provided by a page, centres of interest and the chain of
     members. *)
 
-type t
 (** The type describing the index page. *)
+type t
 
 val merge_chain : Chain.t -> (t, t) Yocaml.Task.t
 

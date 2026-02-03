@@ -7,29 +7,28 @@
 
 type t
 
-val empty : t
 (** Returns an empty chain. *)
+val empty : t
 
 (** {1 Interaction with the chain} *)
 
-val init : chain:string list -> members:Member.t list -> t
 (** Intialize thes chain of the application, used for generating every pages.
     The chain is a list of member (that maintain the order) and members is just
     the list of members, if a member from the chain is not present in the
     [members] set, the member is discared from the chain. Members not present in
     the chain are discarded (also). *)
+val init : chain:string list -> members:Member.t list -> t
 
-val fold :
-  ('a -> pred:Member.t -> curr:Member.t -> succ:Member.t -> 'a) -> 'a -> t -> 'a
 (** [fold f default chain] Traverses all the elements in the chain by applying a
     function that takes the predecessor, the current member, the successor and
     the current state. *)
+val fold : ('a -> pred:Member.t -> curr:Member.t -> succ:Member.t -> 'a) -> 'a -> t -> 'a
 
-val to_list : t -> (Member.t * (Member.t * Member.t)) list
 (** [to_list chain] returns a chain into a list of [curr, (pred, succ)]. *)
+val to_list : t -> (Member.t * (Member.t * Member.t)) list
 
-val to_opml : (t, string) Yocaml.Task.t
 (** [to_opml] An arrow that lift a chain into an OPML file. *)
+val to_opml : (t, string) Yocaml.Task.t
 
 val as_author : t -> string -> Yocaml_syndication.Person.t
 val to_authors : t -> Yocaml_syndication.Person.t Yocaml.Nel.t

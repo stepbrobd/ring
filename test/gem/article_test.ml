@@ -6,11 +6,10 @@ let%expect_test "Validate a minimal article" =
   let article =
     let open Data in
     record
-      [
-        ("title", string "An Article");
-        ("date", string "2024-08-11");
-        ("authors", string "xvw");
-        ("link", record [ ("url", string "https://xvw.lol/a.html") ]);
+      [ "title", string "An Article"
+      ; "date", string "2024-08-11"
+      ; "authors", string "xvw"
+      ; "link", record [ "url", string "https://xvw.lol/a.html" ]
       ]
   in
   print_validated_value Article.pp (Article.validate article);
@@ -26,18 +25,18 @@ let%expect_test "Validate a minimal article" =
       {"url": "https://xvw.lol/a.html", "scheme": "https", "url_without_scheme":
        "xvw.lol/a.html"}}}
     |}]
+;;
 
 let%expect_test "Validate a full article" =
   let article =
     let open Data in
     record
-      [
-        ("title", string "An Article");
-        ("date", string "2024-08-11");
-        ("authors", list_of string [ "xvw"; "grim" ]);
-        ("synopsis", string "A synopsis");
-        ("link", record [ ("url", string "https://xvw.lol/a.html") ]);
-        ("tags", list_of string [ "a"; "b"; "c-d" ]);
+      [ "title", string "An Article"
+      ; "date", string "2024-08-11"
+      ; "authors", list_of string [ "xvw"; "grim" ]
+      ; "synopsis", string "A synopsis"
+      ; "link", record [ "url", string "https://xvw.lol/a.html" ]
+      ; "tags", list_of string [ "a"; "b"; "c-d" ]
       ]
   in
   print_validated_value Article.pp (Article.validate article);
@@ -55,16 +54,16 @@ let%expect_test "Validate a full article" =
       {"url": "https://xvw.lol/a.html", "scheme": "https", "url_without_scheme":
        "xvw.lol/a.html"}}}
     |}]
+;;
 
 let%expect_test "Validate an invalid article" =
   let article =
     let open Data in
     record
-      [
-        ("title", string "An Article");
-        ("authors", list_of string [ "xvw"; "grim" ]);
-        ("synopsis", string "A synopsis");
-        ("tags", list_of string [ "a"; "b"; "c-d" ]);
+      [ "title", string "An Article"
+      ; "authors", list_of string [ "xvw"; "grim" ]
+      ; "synopsis", string "A synopsis"
+      ; "tags", list_of string [ "a"; "b"; "c-d" ]
       ]
   in
   print_validated_value Article.pp (Article.validate article);
@@ -74,3 +73,4 @@ let%expect_test "Validate an invalid article" =
     missing field: link> for {"title": "An Article", "authors": ["xvw", "grim"],
                              "synopsis": "A synopsis", "tags": ["a", "b", "c-d"]}
     |}]
+;;

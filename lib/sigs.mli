@@ -9,21 +9,20 @@ module type RESOLVABLE = sig
   (** A resolvable module is used to describe a resolver for calculating source,
       target and URL paths in the generated application. *)
 
-  val source : Yocaml.Path.t
   (** Describes the source of static data and components. *)
+  val source : Yocaml.Path.t
 
-  val target : Yocaml.Path.t
   (** Describes the destination target of the application. *)
+  val target : Yocaml.Path.t
 end
 
 module type RESOLVER = sig
   (** Describes the resolver. *)
 
-  include RESOLVABLE
-  (** @inline *)
+  include RESOLVABLE (** @inline *)
 
-  val track_common_dependencies : (unit, unit) Yocaml.Task.t
   (** An arrow that track common dependencies*)
+  val track_common_dependencies : (unit, unit) Yocaml.Task.t
 
   (** {1 Source}
 
@@ -48,12 +47,12 @@ module type RESOLVER = sig
     val blog : Yocaml.Path.t
     val avatars : Yocaml.Path.t
 
-    val template : Yocaml.Path.fragment -> Yocaml.Path.t
     (** [template ?ext file] resolve a template file located into [templates]
         directory.
 
         {b Warning} The function simply produces a path, there is no guarantee
         that the template exists. *)
+    val template : Yocaml.Path.fragment -> Yocaml.Path.t
 
     val static_images : Yocaml.Path.t
   end

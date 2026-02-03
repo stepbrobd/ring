@@ -13,7 +13,7 @@ module Make (R : Sigs.RESOLVABLE) = struct
     let template file = Path.(templates / file)
     let members = Path.(data / "members")
     let articles = Path.(data / "articles")
-    let chain = Path.(data / "chain.yml")
+    let chain = Path.(data / "chain.yaml")
     let common_deps = [ binary; chain ]
     let cname = Path.(static / "CNAME")
     let index = Path.(data / "index.md")
@@ -43,6 +43,7 @@ module Make (R : Sigs.RESOLVABLE) = struct
       match pred_or_succ with
       | `Pred -> Path.(target / "pred" / "index.html")
       | `Succ -> Path.(target / "succ" / "index.html")
+    ;;
   end
 
   let track_common_dependencies = Yocaml.Pipeline.track_files Source.common_deps

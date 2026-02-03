@@ -1,13 +1,14 @@
 (** Describes a generic page, mostly used on top of another model. *)
 
-type t
 (** The type describing a page. *)
+type t
 
 val empty : t
 val make : ?title:string -> ?description:string -> ?sub_path:string -> unit -> t
 
-val validate_underlying_page :
-  (string * Yocaml.Data.t) list -> t Yocaml.Data.Validation.validated_record
+val validate_underlying_page
+  :  (string * Yocaml.Data.t) list
+  -> t Yocaml.Data.Validation.validated_record
 
 (** {1 Dealing as metadata} *)
 

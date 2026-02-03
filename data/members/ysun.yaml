@@ -1,0 +1,9 @@
+id: ysun
+display_name: Yifei Sun
+main_link:
+  url: https://ysun.co
+main_feed:
+  url: https://ysun.co/feed.json
+additional_links:
+  - title: GitHub
+    url: https://ysun.co/github
