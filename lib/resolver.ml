@@ -15,7 +15,6 @@ module Make (R : Sigs.RESOLVABLE) = struct
     let articles = Path.(data / "articles")
     let chain = Path.(data / "chain.yaml")
     let common_deps = [ binary; chain ]
-    let cname = Path.(static / "CNAME")
     let index = Path.(data / "index.md")
     let blog = Path.(data / "blog.md")
     let static_images = Path.(static / "images")

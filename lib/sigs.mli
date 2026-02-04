@@ -33,7 +33,6 @@ module type RESOLVER = sig
 
     val root : Yocaml.Path.t
     val binary : Yocaml.Path.t
-    val cname : Yocaml.Path.t
     val common_deps : Yocaml.Path.t list
     val data : Yocaml.Path.t
     val static : Yocaml.Path.t
