@@ -1,9 +1,12 @@
 id: ysun
 display_name: Yifei Sun
+location: Grenoble, France
+avatar: "ysun.avif"
 main_link:
+  title: Homepage
   url: https://ysun.co
-main_feed:
-  url: https://ysun.co/feed.json
 additional_links:
   - title: GitHub
     url: https://ysun.co/github
+  - title: Bluesky
+    url: https://ysun.co/bsky
