@@ -1,5 +1,9 @@
 id: aniva
-display_name: Leni Aniva
+display_name: Leni Aniva (Chrysoberyl)
+bio: I am a cosplayer and the director of NorCal Hakkero Factory No. 1. I also
+  write Julia, Lean, and Rust.
+location: San Francisco Bay Area, California, U.S.
+avatar: "aniva.png"
 main_link:
   url: https://leni.sh
 additional_links:
