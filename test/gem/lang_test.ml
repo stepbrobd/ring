@@ -3,7 +3,7 @@ open Gem.Model
 open Util
 
 let%expect_test "validation - 1" =
-  let base = Lang.Eng in
+  let base = Lang.En in
   let epct =
     Data.[ string "eng"; string "Eng"; string "eNg" ] |> List.map Lang.validate
   in
@@ -19,7 +19,7 @@ let%expect_test "validation - 1" =
 ;;
 
 let%expect_test "validation - 2" =
-  let base = Lang.Fra in
+  let base = Lang.Fr in
   let epct =
     Data.[ string "fra"; string "FrA"; string "fRA" ] |> List.map Lang.validate
   in
@@ -41,13 +41,13 @@ let%expect_test "validation - 3" =
 ;;
 
 let%expect_test "normalization - 1" =
-  let result = Lang.Eng |> Lang.normalize in
+  let result = Lang.En |> Lang.normalize in
   print_endline @@ Format.asprintf "%a" Data.pp result;
-  [%expect {| "eng" |}]
+  [%expect {| "en" |}]
 ;;
 
 let%expect_test "normalization - 2" =
-  let result = Lang.Fra |> Lang.normalize in
+  let result = Lang.Fr |> Lang.normalize in
   print_endline @@ Format.asprintf "%a" Data.pp result;
-  [%expect {| "fra" |}]
+  [%expect {| "fr" |}]
 ;;

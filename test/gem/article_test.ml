@@ -21,7 +21,7 @@ let%expect_test "Validate a minimal article" =
       {"month": "aug", "datetime": "2024-08-11 00:00:00", "date": "2024-08-11",
       "time": "00:00:00", "day_of_week": "sun"}},
     "tags": [], "has_tags": false, "authors": ["xvw"], "link":
-     {"title": "xvw.lol/a.html", "lang": "eng", "url":
+     {"title": "xvw.lol/a.html", "lang": "en", "url":
       {"url": "https://xvw.lol/a.html", "scheme": "https", "url_without_scheme":
        "xvw.lol/a.html"}}}
     |}]
@@ -50,7 +50,7 @@ let%expect_test "Validate a full article" =
       "time": "00:00:00", "day_of_week": "sun"}},
     "tags": ["a", "b", "c-d"], "has_tags": true, "authors": ["xvw", "grim"],
     "link":
-     {"title": "xvw.lol/a.html", "lang": "eng", "url":
+     {"title": "xvw.lol/a.html", "lang": "en", "url":
       {"url": "https://xvw.lol/a.html", "scheme": "https", "url_without_scheme":
        "xvw.lol/a.html"}}}
     |}]

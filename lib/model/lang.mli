@@ -11,8 +11,9 @@
 (** Currently, a very small subset is supported but feel free to add more
     language.*)
 type t =
-  | Eng
-  | Fra
+  | En
+  | Fr
+  | Ja
 
 (** [validate data] validate a lang from a {!type:Yocaml.Data.t} value. *)
 val validate : Yocaml.Data.t -> t Yocaml.Data.Validation.validated_value

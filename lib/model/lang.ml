@@ -1,21 +1,24 @@
 open Model_util
 
 type t =
-  | Eng
-  | Fra
+  | En
+  | Fr
+  | Ja
 
 let validate =
   let open Yocaml.Data.Validation in
   token
   & function
-  | "fra" | "fr" -> Ok Fra
-  | "eng" | "en" -> Ok Eng
+  | "eng" | "en" -> Ok En
+  | "fra" | "fr" -> Ok Fr
+  | "jpn" | "ja" -> Ok Ja
   | given -> fail_with ~given "Invalid Lang Value"
 ;;
 
 let to_string = function
-  | Fra -> "fra"
-  | Eng -> "eng"
+  | En -> "en"
+  | Fr -> "fr"
+  | Ja -> "ja"
 ;;
 
 let normalize lang = Yocaml.Data.string @@ to_string lang
@@ -23,6 +26,6 @@ let pp ppf lang = Format.fprintf ppf "%s" @@ to_string lang
 
 let equal a b =
   match a, b with
-  | Fra, Fra | Eng, Eng -> true
-  | Fra, _ | Eng, _ -> false
+  | En, En | Fr, Fr | Ja, Ja -> true
+  | En, _ | Fr, _ | Ja, _ -> false
 ;;

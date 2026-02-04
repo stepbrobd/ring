@@ -4,10 +4,10 @@ type t = string * Lang.t * Url.t
 
 let validate =
   let open Yocaml.Data.Validation in
-  (Url.validate $ fun url -> Url.url url, Lang.Eng, url)
+  (Url.validate $ fun url -> Url.url url, Lang.En, url)
   / record (fun fields ->
     let* url = required fields "url" Url.validate in
-    let+ lang = optional_or fields "lang" ~default:Lang.Eng Lang.validate
+    let+ lang = optional_or fields "lang" ~default:Lang.En Lang.validate
     and+ title =
       optional_or fields ~default:(Url.url url) "title" (string & minimal_length 1)
     in

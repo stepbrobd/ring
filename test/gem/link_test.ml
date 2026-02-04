@@ -10,13 +10,13 @@ let mk ?title ?lang url =
 let%expect_test "validation - 1" =
   let link = mk ~title:"Capsule" ~lang:"fra" "https://xvw.lol" in
   print_validated_value Link.pp @@ Link.validate link;
-  [%expect {| Capsule, fra, https://xvw.lol |}]
+  [%expect {| Capsule, fr, https://xvw.lol |}]
 ;;
 
 let%expect_test "validation - 2" =
   let link = mk "https://xvw.lol" in
   print_validated_value Link.pp @@ Link.validate link;
-  [%expect {| xvw.lol, eng, https://xvw.lol |}]
+  [%expect {| xvw.lol, en, https://xvw.lol |}]
 ;;
 
 let%expect_test "validation - 3" =
@@ -42,7 +42,7 @@ let%expect_test "validation - relaying on default title " =
     record [ "url", string "https://xvw.lol" ]
   in
   print_validated_value Link.pp @@ Link.validate link;
-  [%expect {| xvw.lol, eng, https://xvw.lol |}]
+  [%expect {| xvw.lol, en, https://xvw.lol |}]
 ;;
 
 let%expect_test "normalize - 1" =
@@ -50,7 +50,7 @@ let%expect_test "normalize - 1" =
   print_validated_value Data.pp (link |> Link.validate |> Result.map Link.normalize);
   [%expect
     {|
-    {"title": "Capsule", "lang": "fra", "url":
+    {"title": "Capsule", "lang": "fr", "url":
      {"url": "https://xvw.lol", "scheme": "https", "url_without_scheme":
       "xvw.lol"}}
     |}]
@@ -65,7 +65,7 @@ let%expect_test "normalize to semantic list - 1" =
      |> Result.map Link.normalize_to_semantic_list);
   [%expect
     {|
-    [{"title": "xvw.lol", "lang": "fra", "url":
+    [{"title": "xvw.lol", "lang": "fr", "url":
       {"url": "https://xvw.lol", "scheme": "https", "url_without_scheme":
        "xvw.lol"},
      "sep": ""}]
@@ -83,11 +83,11 @@ let%expect_test "normalize to semantic list - 2" =
      |> Result.map Link.normalize_to_semantic_list);
   [%expect
     {|
-    [{"title": "xvw.lol", "lang": "fra", "url":
+    [{"title": "xvw.lol", "lang": "fr", "url":
       {"url": "https://xvw.lol", "scheme": "https", "url_without_scheme":
        "xvw.lol"},
      "sep": " and "},
-    {"title": "ocaml.org", "lang": "eng", "url":
+    {"title": "ocaml.org", "lang": "en", "url":
      {"url": "https://ocaml.org", "scheme": "https", "url_without_scheme":
       "ocaml.org"},
     "sep": ""}]
@@ -110,19 +110,19 @@ let%expect_test "normalize to semantic list - 3" =
      |> Result.map Link.normalize_to_semantic_list);
   [%expect
     {|
-    [{"title": "xvw.lol", "lang": "fra", "url":
+    [{"title": "xvw.lol", "lang": "fr", "url":
       {"url": "https://xvw.lol", "scheme": "https", "url_without_scheme":
        "xvw.lol"},
      "sep": ", "},
-    {"title": "ocaml.org", "lang": "eng", "url":
+    {"title": "ocaml.org", "lang": "en", "url":
      {"url": "https://ocaml.org", "scheme": "https", "url_without_scheme":
       "ocaml.org"},
     "sep": ", "},
-    {"title": "discuss.ocaml.org", "lang": "eng", "url":
+    {"title": "discuss.ocaml.org", "lang": "en", "url":
      {"url": "https://discuss.ocaml.org", "scheme": "https",
      "url_without_scheme": "discuss.ocaml.org"},
     "sep": " and "},
-    {"title": "foobar.com", "lang": "eng", "url":
+    {"title": "foobar.com", "lang": "en", "url":
      {"url": "https://foobar.com", "scheme": "https", "url_without_scheme":
       "foobar.com"},
     "sep": ""}]

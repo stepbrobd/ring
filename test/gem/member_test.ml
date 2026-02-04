@@ -12,7 +12,7 @@ let%expect_test "validate a minimal member" =
     {|
     {"id": "xwv", "display_name": "xwv", "has_bio": false, "bio": null,
     "has_avatar": false, "avatar": null, "main_link":
-     {"title": "xvw.lol", "lang": "eng", "url":
+     {"title": "xvw.lol", "lang": "en", "url":
       {"url": "https://xvw.lol", "scheme": "https", "url_without_scheme":
        "xvw.lol"}},
     "has_main_feed": false, "main_feed": null, "has_nouns": false, "nouns":
@@ -51,26 +51,26 @@ let%expect_test "validate a full member" =
     {"id": "xwv", "display_name": "xwv", "has_bio": true, "bio":
      "I an OCaml programmer from Belgium, living in France", "has_avatar":
      false, "avatar": null, "main_link":
-     {"title": "xvw.lol", "lang": "eng", "url":
+     {"title": "xvw.lol", "lang": "en", "url":
       {"url": "https://xvw.lol", "scheme": "https", "url_without_scheme":
        "xvw.lol"}},
     "has_main_feed": true, "main_feed":
-     {"title": "xvw.lol/atom.xml", "lang": "eng", "url":
+     {"title": "xvw.lol/atom.xml", "lang": "en", "url":
       {"url": "https://xvw.lol/atom.xml", "scheme": "https",
       "url_without_scheme": "xvw.lol/atom.xml"}},
     "has_nouns": true, "nouns": ["he", "him", "his", "himself"],
     "has_additional_links": true, "additional_links":
-     [{"title": "xvw1.lol", "lang": "eng", "url":
+     [{"title": "xvw1.lol", "lang": "en", "url":
        {"url": "https://xvw1.lol", "scheme": "https", "url_without_scheme":
         "xvw1.lol"}},
-     {"title": "xvw2.lol", "lang": "eng", "url":
+     {"title": "xvw2.lol", "lang": "en", "url":
       {"url": "https://xvw2.lol", "scheme": "https", "url_without_scheme":
        "xvw2.lol"}}],
     "has_additional_feeds": true, "additional_feeds":
-     [{"title": "xvw.lol/1.xml", "lang": "eng", "url":
+     [{"title": "xvw.lol/1.xml", "lang": "en", "url":
        {"url": "https://xvw.lol/1.xml", "scheme": "https", "url_without_scheme":
         "xvw.lol/1.xml"}},
-     {"title": "xvw.lol/2.xml", "lang": "eng", "url":
+     {"title": "xvw.lol/2.xml", "lang": "en", "url":
       {"url": "https://xvw.lol/2.xml", "scheme": "https", "url_without_scheme":
        "xvw.lol/2.xml"}}],
     "has_location": true, "location": "France, Nantes"}
