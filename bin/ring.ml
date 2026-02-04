@@ -64,7 +64,7 @@ let log_level_conv =
 ;;
 
 let target_arg =
-  let default = Yocaml.Path.rel [ "_www" ] in
+  let default = Yocaml.Path.rel [ "_build"; "www" ] in
   let doc = "The directory where the ring will be built" in
   let arg = Arg.info ~doc ~docs:Manpage.s_common_options [ "target"; "output" ] in
   Arg.(value (opt path_conv default arg))

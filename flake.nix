@@ -24,6 +24,7 @@
         packages = with pkgs; [
           deno
         ] ++ (with ocamlPackages; [
+          ocaml-lsp
           ocaml-print-intf
           ocamlformat
           utop

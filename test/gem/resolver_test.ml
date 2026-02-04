@@ -1,7 +1,7 @@
 (* A dummy resolver *)
 module R = Gem.Resolver.Make (struct
     let source = Yocaml.Path.rel []
-    let target = Yocaml.Path.(source / "_www")
+    let target = Yocaml.Path.(source / "_build" / "www")
   end)
 
 let%expect_test "Resolve some path" =
@@ -21,7 +21,7 @@ let%expect_test "Resolve some path" =
   [%expect
     {|
     ./
-    ./_www
+    ./_build/www
     ./data
     ./static
     ./static/css

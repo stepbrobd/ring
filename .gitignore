@@ -14,7 +14,6 @@
 .merlin
 _build/
 _opam/
-_www/
 result
 result-*
 setup.data
