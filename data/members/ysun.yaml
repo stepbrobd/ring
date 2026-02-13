@@ -6,7 +6,7 @@ bio: im under ur bed ;)
 main_link:
   url: https://ysun.co
 main_feed:
-  url: https://ysun.co/feed.rss
+  url: https://ysun.co/atom.xml
 additional_links:
   - url: https://ysun.co/bsky
   - url: https://ysun.co/codeberg
