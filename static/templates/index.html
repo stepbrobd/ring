@@ -1,12 +1,11 @@
 {%- autoescape false -%} {{ yocaml_body }} {%- endautoescape -%} {%- if
 has_interests -%}
 <p class="interests">
-  We're interested in a range of subjects, for example {%- for it in interests
-  %}
-  <a href="{{it.url.url}}">{{ it.title }}</a>{{ it.sep }}{%- endfor -%}. If you
-  are interested in the different topics proposed or if you find yourself close
-  to the ideas presented by the different members of the ring, don't hesitate to
-  <a href="https://github.com/gskring/gskring">add your own digital space</a>!
+  This webring is by invitation only. A current member must have met the
+  prospective member in person (e.g., at a conference) and must be able to vouch
+  for the candidate's exceptional engineering skills and character. We're
+  interested in {%- for it in interests %}
+  <a href="{{it.url.url}}">{{ it.title }}</a>{{ it.sep }}{%- endfor -%}.
 </p>
 {%- endif -%} {%- if has_members -%}
 <section class="members">
