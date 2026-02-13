@@ -161,7 +161,7 @@ header > .container > h1 {
 
 .logo span.sub-path::before {
   content: "/u/";
-  color: var(--link-default);
+  color: var(--link-visited);
 }
 
 .button,
