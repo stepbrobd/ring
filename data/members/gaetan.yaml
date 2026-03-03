@@ -1,0 +1,14 @@
+id: gaetan
+display_name: Gaetan Lepage
+bio: I am a research engineer at Mistral AI and a contributor to the Nix ecosystem.
+location: Paris, France
+main_link:
+  url: https://glepage.com
+  lang: en
+additional_links:
+  - title: GitHub
+    url: https://github.com/GaetanLepage
+  - title: Bluesky
+    url: https://bsky.app/profile/glepage.com
+  - title: Twitter
+    url: https://x.com/GaetanLepage_
