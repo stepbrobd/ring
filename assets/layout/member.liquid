@@ -3,16 +3,12 @@
     {% if member.has_avatar %}
     <img
       src="/images/avatars/{{ member.avatar }}"
-      class="w-24 h-24 object-cover"
-      width="96"
-      height="96"
+      class="w-full aspect-square object-cover"
       alt="{{ member.display_name }}"
     />
     {% else %}
     <svg
-      class="w-24 h-24"
-      width="96"
-      height="96"
+      class="w-full aspect-square"
       viewBox="0 0 96 96"
       xmlns="http://www.w3.org/2000/svg"
     >
