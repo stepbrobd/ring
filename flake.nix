@@ -2,25 +2,21 @@
   outputs = { self, nixpkgs, parts, systems } @ inputs: parts.lib.mkFlake { inherit inputs; } {
     systems = import systems;
 
-    perSystem = { lib, pkgs, system, ... }: {
+    perSystem = { lib, pkgs, system, self', ... }: {
       _module.args.pkgs = import nixpkgs {
         inherit system;
         overlays = [
           (final: prev: {
-            ocamlPackages = prev.ocaml-ng.ocamlPackages_latest.overrideScope (ocamlFinal: ocamlPrev:
+            ocamlPackages = prev.ocaml-ng.ocamlPackages.overrideScope (ocamlFinal: ocamlPrev:
               (with lib; genAttrs
                 (attrNames (builtins.readDir ./pkgs))
-                (name: ocamlFinal.callPackage ./pkgs/${name} { }))
-              //
-              {
-                dune = ocamlPrev.dune_3;
-              });
+                (name: ocamlFinal.callPackage ./pkgs/${name} { })));
           })
         ];
       };
 
       devShells.default = pkgs.mkShell {
-        inputsFrom = [ self.packages.${system}.default ];
+        inputsFrom = with self'.packages; [ gskring ];
         packages = with pkgs; [
           deno
         ] ++ (with ocamlPackages; [
@@ -32,9 +28,20 @@
       };
 
       formatter = pkgs.writeShellScriptBin "formatter" ''
-        ${lib.getExe pkgs.deno} fmt .
+        set -eoux pipefail
+        shopt -s globstar
+        root="$PWD"
+        while [[ ! -f "$root/.git/index" ]]; do
+          if [[ "$root" == "/" ]]; then
+            exit 1
+          fi
+          root="$(dirname "$root")"
+        done
+        pushd "$root" > /dev/null
+        ${lib.getExe pkgs.deno} fmt pages
         ${lib.getExe pkgs.nixpkgs-fmt} .
         ${lib.getExe pkgs.ocamlPackages.dune} fmt
+        popd
       '';
 
       packages = with lib; fix (self: (
@@ -42,7 +49,7 @@
           (attrNames (builtins.readDir ./pkgs))
           (name: pkgs.ocamlPackages.${name}))
         //
-        { default = self.ring; }
+        { default = self.gskring; }
       ));
     };
   };
