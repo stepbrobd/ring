@@ -61,8 +61,6 @@ buildDunePackage (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    dune install --prefix $out --libdir $OCAMLFIND_DESTDIR ${finalAttrs.pname}
-
     rm _build/www/cache
     mkdir -p $out/var/www/html
     cp -r _build/www/* $out/var/www/html/

@@ -19,6 +19,7 @@
         inputsFrom = with self'.packages; [ gskring ];
         packages = with pkgs; [
           deno
+          nixpkgs-fmt
         ] ++ (with ocamlPackages; [
           ocaml-lsp
           ocaml-print-intf
