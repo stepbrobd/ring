@@ -39,7 +39,7 @@
           root="$(dirname "$root")"
         done
         pushd "$root" > /dev/null
-        ${lib.getExe pkgs.deno} fmt pages
+        ${lib.getExe pkgs.deno} fmt .
         ${lib.getExe pkgs.nixpkgs-fmt} .
         ${lib.getExe pkgs.ocamlPackages.dune} fmt
         popd
