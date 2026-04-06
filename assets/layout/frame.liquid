@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>gskr.ing - {{ current.main_link.title }}</title>
+    <link rel="stylesheet" href="/assets/style/tailwind.css" />
+  </head>
+  <body class="flex flex-col min-h-screen bg-nord-0 text-nord-6">
+    <div class="flex flex-col flex-1">
+      <aside class="p-6 bg-nord-1">
+        Browsing
+        <a href="/" class="text-nord-8 hover:text-nord-7 no-underline"
+          >gskr.ing</a
+        >
+        <nav class="mt-2">
+          <a
+            href="/u/{{ predecessor.id }}/frame.html"
+            class="inline-block mr-4 font-bold text-nord-8 hover:text-nord-7 no-underline"
+            >&larr; {{ predecessor.main_link.title }}</a
+          >
+          <a
+            href="/u/{{ current.id }}/frame.html"
+            class="inline-block mr-4 font-bold text-nord-8 hover:text-nord-7 no-underline"
+            >{{ current.main_link.title }}</a
+          >
+          <a
+            href="/u/{{ successor.id }}/frame.html"
+            class="inline-block mr-4 font-bold text-nord-8 hover:text-nord-7 no-underline"
+            >{{ successor.main_link.title }} &rarr;</a
+          >
+        </nav>
+      </aside>
+      <iframe
+        frameborder="0"
+        src="{{ current.main_link.url.url }}"
+        class="flex-1 bg-white border-none"
+      ></iframe>
+    </div>
+  </body>
+</html>

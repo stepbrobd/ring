@@ -1,0 +1,115 @@
+<div class="w-full flex flex-row gap-12 max-md:flex-col max-md:gap-8">
+  <div class="flex-1 min-w-[200px] max-md:min-w-0">
+    {% if member.has_avatar %}
+    <img
+      src="/images/avatars/{{ member.avatar }}"
+      class="w-24 h-24 object-cover"
+      width="96"
+      height="96"
+      alt="{{ member.display_name }}"
+    />
+    {% else %}
+    <svg
+      class="w-24 h-24"
+      width="96"
+      height="96"
+      viewBox="0 0 96 96"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="96" height="96" fill="#3aac97" />
+      <text
+        x="48"
+        y="58"
+        text-anchor="middle"
+        font-size="36"
+        font-family="Inter, sans-serif"
+        font-weight="900"
+        fill="#052520"
+      >
+        NA
+      </text>
+    </svg>
+    {% endif %}
+    <nav class="flex bg-nord-1 flex-row mt-8">
+      <div class="flex-1 px-3 py-2">
+        <a
+          href="/u/{{ pred.id }}/"
+          class="font-light text-nord-8 hover:text-nord-7 no-underline"
+          >pred</a
+        >
+      </div>
+      <div class="flex-1 px-3 py-2 text-right">
+        <a
+          href="/u/{{ succ.id }}/"
+          class="font-light text-nord-8 hover:text-nord-7 no-underline"
+          >succ</a
+        >
+      </div>
+    </nav>
+  </div>
+  <div class="flex-[3] min-w-0">
+    {% if member.has_bio %}
+    <p class="my-4 text-nord-4">{{ member.bio }}</p>
+    {% endif %}
+    <section class="mt-12">
+      <h2 class="font-normal mb-6 border-b border-nord-1 pb-2 text-nord-6">
+        Links
+      </h2>
+      <div
+        class="flex flex-row flex-wrap gap-2 max-md:flex-col max-md:w-full"
+      >
+        <div
+          class="bg-nord-1 px-3 py-1 text-sm max-md:w-full max-md:text-center"
+        >
+          <a
+            href="{{ member.main_link.url.url }}"
+            class="font-light text-nord-8 hover:text-nord-7 no-underline"
+            >{{ member.main_link.title }}</a
+          >
+        </div>
+        {% for link in member.additional_links %}
+        <div
+          class="bg-nord-1 px-3 py-1 text-sm max-md:w-full max-md:text-center"
+        >
+          <a
+            href="{{ link.url.url }}"
+            class="font-light text-nord-8 hover:text-nord-7 no-underline"
+            >{{ link.title }}</a
+          >
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% if member.has_main_feed %}
+    <section class="mt-12">
+      <h2 class="font-normal mb-6 border-b border-nord-1 pb-2 text-nord-6">
+        Feeds
+      </h2>
+      <div
+        class="flex flex-row flex-wrap gap-2 max-md:flex-col max-md:w-full"
+      >
+        <div
+          class="bg-nord-1 px-3 py-1 text-sm max-md:w-full max-md:text-center"
+        >
+          <a
+            href="{{ member.main_feed.url.url }}"
+            class="font-light text-nord-8 hover:text-nord-7 no-underline"
+            >{{ member.main_feed.title }}</a
+          >
+        </div>
+        {% for link in member.additional_feeds %}
+        <div
+          class="bg-nord-1 px-3 py-1 text-sm max-md:w-full max-md:text-center"
+        >
+          <a
+            href="{{ link.url.url }}"
+            class="font-light text-nord-8 hover:text-nord-7 no-underline"
+            >{{ link.title }}</a
+          >
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</div>

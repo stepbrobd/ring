@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% if has_description %}
+    <meta name="description" content="{{ description }}" />
+    {% endif %}
+    <title>
+      gsk.ring{% if has_page_title %} - {{ page_title }}{% endif %}
+    </title>
+    <link rel="stylesheet" href="/assets/style/tailwind.css" />
+  </head>
+  <body
+    class="flex flex-col min-h-screen bg-nord-0 text-nord-6 font-sans text-lg leading-relaxed antialiased"
+  >
+    <header class="mt-8 w-full">
+      <div
+        class="w-full max-w-4xl mx-auto px-3 py-8 flex flex-row items-center flex-wrap max-md:flex-col max-md:items-start"
+      >
+        <h1
+          class="flex-1 min-w-0 text-[280%] leading-tight font-semibold max-md:leading-16 max-md:mb-8 max-md:w-full"
+        >
+          <a href="/" class="text-nord-6 no-underline hover:text-nord-6"
+            >gsk<span class="text-nord-8">r.ing</span></a
+          >
+          {% if has_sub_path %}
+          <span
+            class="font-extralight text-nord-4 break-all before:content-['/u/'] before:text-nord-15"
+            >{{ sub_path }}</span
+          >
+          {% endif %}
+        </h1>
+        <nav class="max-md:w-full max-md:flex max-md:flex-wrap max-md:gap-2">
+          <a
+            href="/articles.html"
+            class="bg-nord-1 px-3 py-1.5 rounded text-sm text-nord-8 ml-4 whitespace-nowrap hover:text-nord-7 hover:bg-nord-0 no-underline max-md:ml-0 max-md:mr-2 max-md:mb-2"
+            >Articles</a
+          >
+        </nav>
+      </div>
+    </header>
+    <main class="flex-1 w-full">
+      <div class="w-full max-w-4xl mx-auto px-3 py-8">
+        {{ content }}
+      </div>
+    </main>
+    <footer class="text-nord-4 py-12 border-t border-nord-1 mt-16">
+      <div class="w-full max-w-4xl mx-auto px-3 py-8">
+        <strong class="text-nord-6 font-semibold"
+          >gsk<span class="text-nord-8">r.ing</span></strong
+        ><br />
+        <p class="text-sm m-0">
+          is a
+          <a
+            href="https://github.com/gskring/gskring"
+            class="text-nord-8 hover:text-nord-7 no-underline"
+            >free software</a
+          >
+          proudly propulsed by
+          <a
+            href="https://gitlab.com/funkywork/yocaml"
+            class="text-nord-8 hover:text-nord-7 no-underline"
+            >YOCaml</a
+          >
+        </p>
+        <nav class="mt-6 text-sm">
+          <a
+            class="bg-nord-1 px-3 py-1.5 rounded text-nord-8 mr-4 hover:text-nord-7 hover:bg-nord-0 no-underline"
+            href="/opml/ring.opml"
+            >OPML</a
+          >
+          <a
+            class="bg-nord-1 px-3 py-1.5 rounded text-nord-8 mr-4 hover:text-nord-7 hover:bg-nord-0 no-underline"
+            href="/atom.xml"
+            >ATOM</a
+          >
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

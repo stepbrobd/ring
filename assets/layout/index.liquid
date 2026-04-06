@@ -1,0 +1,62 @@
+{{ content }}
+{% if has_interests %}
+<p class="my-4 text-nord-4">
+  This webring is by invitation only. A current member must have met the
+  prospective member in person (e.g., at a conference) and must be able to vouch
+  for the candidate's exceptional engineering skills and character. We're
+  interested in
+  {% for it in interests %}
+  <a
+    href="{{ it.url.url }}"
+    class="text-nord-8 hover:text-nord-7 no-underline"
+    >{{ it.title }}</a
+  >{{ it.sep }}
+  {% endfor %}.
+</p>
+{% endif %}
+{% if has_members %}
+<section
+  class="grid grid-cols-3 gap-8 my-16 max-md:grid-cols-1 max-lg:grid-cols-2"
+>
+  {% for m in chain %}
+  <div
+    class="border-l-[6px] border-nord-8 bg-nord-1 p-4 text-sm text-nord-8 min-w-0"
+  >
+    <div class="mb-3 flex flex-row gap-2 items-baseline flex-wrap">
+      <h2 class="text-lg flex-1 text-nord-6 min-w-0 font-semibold">
+        <a
+          href="/u/{{ m.id }}"
+          class="text-nord-6 no-underline hover:text-nord-4"
+          >{{ m.display_name }}</a
+        >
+      </h2>
+      <span class="uppercase font-extralight text-xs text-nord-4"
+        >{{ m.main_link.lang }}</span
+      >
+    </div>
+    <nav class="flex flex-wrap gap-2">
+      <a
+        href="/u/{{ m.id }}/frame.html"
+        title="{{ m.main_link.title }}"
+        class="bg-nord-0 px-2 py-0.5 text-sm rounded-sm text-nord-8 hover:text-nord-7 no-underline"
+        >www</a
+      >
+      {% if m.has_main_feed %}
+      <a
+        href="{{ m.main_feed.url.url }}"
+        title="{{ m.main_feed.title }}"
+        class="bg-nord-0 px-2 py-0.5 text-sm rounded-sm text-nord-8 hover:text-nord-7 no-underline"
+        >feed</a
+      >
+      {% endif %}
+    </nav>
+  </div>
+  {% endfor %}
+</section>
+{% else %}
+<section
+  class="text-nord-8 border-l-8 border-nord-1 py-8 px-8 my-16 font-serif text-3xl break-words"
+>
+  The ring is empty
+</section>
+{% endif %}

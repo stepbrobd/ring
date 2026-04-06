@@ -1,0 +1,55 @@
+{{ content }}
+{% if has_articles %}
+<section class="mt-16 text-[0.95rem] pb-8">
+  {% for article in articles %}
+  <article class="border-b-4 border-nord-1 pb-8 mb-8 last:border-b-transparent">
+    <div>
+      <div>
+        <span
+          class="mb-3 bg-nord-1 px-3 py-1 inline-block text-nord-8 uppercase text-xs font-semibold"
+          >{{ article.link.lang }}</span
+        >
+      </div>
+      <h2 class="mb-3 text-xl">
+        <a
+          href="{{ article.link.url.url }}"
+          class="text-nord-6 font-normal no-underline hover:text-nord-4"
+          >{{ article.title }}</a
+        >
+      </h2>
+      <div class="text-nord-4">
+        published on
+        <span class="text-nord-8 font-bold">{{ article.date.repr.date }}</span>
+        by {% for author in article.authors %}
+        <a
+          class="bg-nord-1 px-3 py-1.5 rounded text-sm text-nord-8 ml-1 hover:text-nord-7 hover:bg-nord-0 no-underline"
+          href="/u/{{ author }}"
+          >{{ author }}</a
+        >
+        {% endfor %}
+      </div>
+    </div>
+    {% if article.has_synopsis %}
+    <p class="py-2 font-light text-nord-4">{{ article.synopsis }}</p>
+    {% endif %}
+    {% if article.has_tags %}
+    <ul class="p-0">
+      {% for tag in article.tags %}
+      <li
+        class="list-none inline-block px-2 py-1 font-light text-sm text-nord-4 before:content-['#'] before:text-nord-8"
+      >
+        {{ tag }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+<section
+  class="text-nord-8 border-l-8 border-nord-1 py-8 px-8 my-16 font-serif text-3xl break-words"
+>
+  There are no federated articles
+</section>
+{% endif %}
