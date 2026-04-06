@@ -1,6 +1,0 @@
-(library
- (name gem_test)
- (inline_tests)
- (libraries yocaml ring.gem)
- (preprocess
-  (pps ppx_expect)))
