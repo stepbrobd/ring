@@ -4,11 +4,15 @@
 (executables_implicit_empty_intf true)
 
 (name gskring)
-(version dev)
+(version 2026.406.0)
 (source (github gskring/gskring))
 (license GPL-3.0-or-later)
-(authors "Xavier Van de Woestyne <xaviervdw@gmail.com>")
-(maintainers "Xavier Van de Woestyne <xaviervdw@gmail.com>")
+(authors
+  "Yifei Sun <ysun@hey.com>"
+  "Xavier Van de Woestyne <xaviervdw@gmail.com>")
+(maintainers
+  "Yifei Sun <ysun@hey.com>"
+  "Xavier Van de Woestyne <xaviervdw@gmail.com>")
 
 (package
   (name gskring)
