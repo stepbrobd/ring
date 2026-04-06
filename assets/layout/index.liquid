@@ -5,13 +5,12 @@
   prospective member in person (e.g., at a conference) and must be able to vouch
   for the candidate's exceptional engineering skills and character. We're
   interested in
-  {% for it in interests %}
+  {%- for it in interests %}
   <a
     href="{{ it.url.url }}"
     class="text-nord-8 hover:text-nord-7 no-underline"
     >{{ it.title }}</a
-  >{{ it.sep }}
-  {% endfor %}.
+  >{{ it.sep }}{%- endfor %}.
 </p>
 {% endif %}
 {% if has_members %}
