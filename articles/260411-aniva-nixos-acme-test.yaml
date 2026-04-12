@@ -1,0 +1,11 @@
+title: Fixture ACME Testing a NixOS Configuration
+synopsis: Tutorial about e2e testing NixOS services that require TLS
+date: 2026-04-11
+authors:
+  - aniva
+lang: en
+link:
+  url: https://leni.sh/post/260411-nixos-acme-test/
+tags:
+  - nixos
+  - devops
