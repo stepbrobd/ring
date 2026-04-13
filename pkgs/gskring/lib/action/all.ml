@@ -17,6 +17,7 @@ let run (module R : Sigs.RESOLVER) () =
   return cache
   >>= Css.run (module R)
   >>= Images.run (module R)
+  >>= Favicon.run (module R)
   >>= Articles.run (module R) chain
   >>= Atom.run (module R) chain
   >>= Opml.run (module R) chain

@@ -21,6 +21,7 @@ module type RESOLVER = sig
     val index : Yocaml.Path.t
     val articles : Yocaml.Path.t
     val avatars : Yocaml.Path.t
+    val favicon : Yocaml.Path.t
   end
 
   module Target : sig

@@ -14,6 +14,7 @@ module Make (R : Sigs.RESOLVABLE) = struct
     let articles = Path.(pages / "articles.md")
     let avatars = members
     let css = Path.(Path.rel [ "assets" ] / "style" / "tailwind.css")
+    let favicon = Path.(Path.rel [ "assets" ] / "favicon.ico")
     let layouts = Path.(Path.rel [ "assets" ] / "layout")
     let template file = Path.(layouts / file)
   end
