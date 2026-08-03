@@ -14,6 +14,10 @@ updates:
       actions:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "cachix/install-nix-action"
+        versions:
+          - ">= 31.11.0"
 
   - package-ecosystem: nix
     directory: "/"
