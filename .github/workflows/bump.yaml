@@ -9,6 +9,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: bump
+  cancel-in-progress: true
+
 jobs:
   Bump:
     runs-on: ubuntu-latest
@@ -16,15 +20,52 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Install Nix
-        # check comments in stepbrobd/ysun
-        uses: cachix/install-nix-action@v31.10.7
+        uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=https://github.com/nixos/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           extra_nix_config: |
             trusted-public-keys = cache.ysun.co-1:WxPYwT5g3kt9XhUhHPpNLZKI9HIOsVVAuqSHpok8Qt4= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
             substituters = https://cache.ysun.co https://cache.nixos.org/
       - name: Bump
-        uses: gepbird/nix-update-action@v3
-        with:
-          pr-reviewers: stepbrobd
-          blacklist: default,dune,gskring,omd
+        # check comments in stepbrobd/ysun
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BLACKLIST: default,dune,gskring,omd
+          BRANCH: bump
+        run: |
+          set -euo pipefail
+
+          BASE=$(git rev-parse --abbrev-ref HEAD)
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --force-create "$BRANCH"
+
+          nix profile add nixpkgs#nix-update nixpkgs#jq
+
+          while read -r pkg; do
+            case ",$BLACKLIST," in *",$pkg,"*) continue ;; esac
+            echo "::group::$pkg"
+            nix-update --flake --commit "$pkg" || {
+              echo "::warning::nix-update failed for $pkg, skipping"
+              git checkout -- .
+              git clean -fd
+            }
+            echo "::endgroup::"
+          done < <(nix flake show --json | jq -r '[.packages[] | keys[]] | unique | .[]')
+
+          if [[ -z $(git log "origin/$BASE..HEAD" --oneline) ]]; then
+            echo "No packages updated."
+            exit 0
+          fi
+
+          git push --force -u origin "$BRANCH"
+
+          body=$(git log "origin/$BASE..HEAD" --format="- %s" | sort)
+          num=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')
+          if [[ -n "$num" ]]; then
+            gh pr edit "$num" --body "$body"
+          else
+            gh pr create --base "$BASE" --head "$BRANCH" --title "pkgs: bump" --body "$body"
+            gh pr edit "$BRANCH" --add-reviewer stepbrobd || true
+          fi
